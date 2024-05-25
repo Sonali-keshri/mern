@@ -21,7 +21,8 @@ const useUserActions = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${api}/login`, loginData)
+      // const response = await axios.post(`${api}/login`, loginData)
+      const response = await axios.post(`/login`, loginData)
 
       dispatch(setLoggedIn(true))
 
@@ -36,7 +37,8 @@ const useUserActions = () => {
 
   const checkAuth = async () => {
     try {
-      const response = await axios.get(`${api}/check-auth`);
+      // const response = await axios.get(`${api}/check-auth`);
+      const response = await axios.get(`/check-auth`);
       console.log('response', response?.data);
       if (response.status === 200) {
         dispatch(setLoggedIn(true));
@@ -51,7 +53,8 @@ const useUserActions = () => {
 
   const logout = async () => {
     try {
-      await axios.get(`${api}/logout`); 
+      // await axios.get(`${api}/logout`); 
+      await axios.get(`/logout`); 
       dispatch(setLoggedIn(false)); 
     } catch (error) {
       console.error('Error logging out:', error);

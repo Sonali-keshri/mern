@@ -20,8 +20,9 @@ const useNoteActions = () => {
 
   const fetchNotes = async () => {
     try {
-      const response = await axios.get(`${api}/notes`);
-      const fetchedFilteredData = response?.data?.notes.filter(note => note.title.includes(searchNoteQuery))
+      // const response = await axios.get(`${api}/notes`);
+      const response = await axios.get(`/notes`);
+      const fetchedFilteredData = response?.data?.notes?.filter(note => note.title.includes(searchNoteQuery))
 
       dispatch(setNotes(fetchedFilteredData));
     } catch (error) {
@@ -45,7 +46,8 @@ const useNoteActions = () => {
       if (isEdit === false) {
         // create the note
         if (createForm.title !== '' && createForm.body !== '') {
-          const res = await axios.post(`${api}/notes`, createForm);
+          // const res = await axios.post(`${api}/notes`, createForm);
+          const res = await axios.post(`/notes`, createForm);
           // update state
           dispatch(setNotes([
             ...notes, res.data.note
@@ -55,7 +57,8 @@ const useNoteActions = () => {
         }
       } else {
         // edit the note
-        const res = await axios.put(`${api}/notes/${editNoteId}`, createForm);
+        // const res = await axios.put(`${api}/notes/${editNoteId}`, createForm);
+        const res = await axios.put(`/notes/${editNoteId}`, createForm);
 
         // update the state
         const updatedNotes = notes.map(note => note._id === editNoteId ? res.data.note : note);
@@ -77,7 +80,8 @@ const useNoteActions = () => {
   const deleteNote = async (id) => {
     try {
       // delete the note 
-      await axios.delete(`${api}/notes/${id}`);
+      // await axios.delete(`${api}/notes/${id}`);
+      await axios.delete(`/notes/${id}`);
 
       // update state
       const filteredNotes = notes.filter(note => note._id !== id);
