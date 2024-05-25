@@ -47,5 +47,9 @@ app.delete('/notes/:id', requireAuth, deleteNote)
 
 app.use(express.static(path.join(__dirname, '/frontend/dist')));
 
+app.get("*", (req, res)=>{
+    res.sendFile(path.join(__dirname, 'frontend', "dist", "index.html"))
+})
+
 //start the server
 app.listen(process.env.PORT)
