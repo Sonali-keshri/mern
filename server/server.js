@@ -13,6 +13,10 @@ import { signup, login, logout, checkAuth } from './controllers/usersController.
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import requireAuth from './middleware/requireAuth.js';
+import path from "path"
+
+const __dirname = path.resolve()
+
 
 // create an express app
 const app = express()
@@ -28,6 +32,7 @@ app.use(cors({
 // Connect to db
 connectToDb()
 
+
 //Routing
 app.post('/signup', signup)
 app.post('/login', login)
@@ -39,6 +44,8 @@ app.get('/notes/:id', requireAuth, fetchNote)
 app.post('/notes', requireAuth, createNote)
 app.put('/notes/:id', requireAuth, updateNote)
 app.delete('/notes/:id', requireAuth, deleteNote)
+
+app.use(express.static(path.join(__dirname, '/frontend/dist')));
 
 //start the server
 app.listen(process.env.PORT)
